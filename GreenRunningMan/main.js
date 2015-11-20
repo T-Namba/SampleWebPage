@@ -93,11 +93,13 @@ function gameMain(){
 		sky.update();
 		
 		//stage
-		if(stage.update()){title.addChild(stageList[stageList.length-1]);}
+		if(stage.update()){
+			title.addChild(stageList[stageList.length-1]);
+			title.addChild(grm);
+		}
 		
 		//grm
 		grm.update();
-		title.addChild(grm);
 		collisionCheck();
 		demoPlay()
 	
@@ -145,11 +147,13 @@ function gameMain(){
 		sky.update();
 		
 		//stage
-		if(stage.update()){game.addChild(stageList[stageList.length-1]);}
+		if(stage.update()){
+			game.addChild(stageList[stageList.length-1]);
+			game.addChild(grm);
+		}
 		
 		//grm
 		grm.update();
-		game.addChild(grm);
 		collisionCheck();
 		
 		// label
