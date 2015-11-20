@@ -104,7 +104,7 @@ function gameMain(){
 		demoPlay()
 	
 		//bgm
-		core.assets['title.ogg'].play();			
+		//core.assets['title.ogg'].play();			
 	});
 	
 	title.addEventListener('touchstart', function() {
@@ -165,7 +165,7 @@ function gameMain(){
 		}
 		
 		//bgm
-		core.assets['game.ogg'].play();
+		//core.assets['game.ogg'].play();
 
 		if(grm.y > height){
 			core.assets[`fall.ogg`].play();
@@ -326,136 +326,3 @@ function gameMain(){
 	}
 	
 }
-
-/*****************************************
- * memo
- * 
- **********************************************/
-/*
-	var grmcol= new Sprite(34,73);
-	grmcol.x=20; 
-	grmcol.backgroundColor = "rgb(100, 150, 200)";
-
-
-	// Spriteオブジェクトの作成
-	var sprite = new Sprite(100, 100);
-	sprite.x = 100;
-	sprite.y = 100;
-	// spriteオブジェクトの背景色の指定
-	sprite.backgroundColor = "rgba(200, 255, 200, 0.5)";
-	
-	// Surfaceオブジェクトの作成
-	// Spriteの大きさ以上に指定しても範囲外には描画されない
-	var surface = new Surface(100, 100);
-	// SurfaceオブジェクトをSpriteオブジェクトのimageプロパティに代入
-	sprite.image = surface;
-	
-	// コンテキストを取得する
-	context = surface.context;
-	// パスの描画の初期化
-	context.beginPath();        
-	// 描画開始位置の移動
-	context.moveTo(10, 10);
-	// 指定座標まで直線を描画
-	context.lineTo(40, 40);
-	// 線の色を指定 (指定しないと黒)
-	context.strokeStyle = "rgba(0, 0, 255, 0.5)";        
-	// 描画を行う
-	context.stroke();
-
-	core.rootScene.addChild(sprite);
-*/
-
-/*
-//bear
-	var bear = new Sprite(32,32);
-	bear.image=core.assets[`chara1.png`];
-	bear.x=0;
-	bear.y=0;
-	bear.addEventListener('enterframe',function(){
-		this.frame = this.age%3;
-	});
-	title.addChild(bear);
-	
-	//rogo
-	var titlerogo = new Label(`Title`);
-	titlerogo.x = 100;
-	titlerogo.y = 100;
-	title.addChild(titlerogo);
-	*/
-	
-	/*
-	var sky_test = {
-		sprite1 : new Sprite(1366,568),
-		sprite2 : new Sprite(1366,568),
-		init : function(){
-			this.sprite1 = new Sprite(1366,568);
-			this.sprite2 = new Sprite(1366,568);
-		},
-		initPos : function(){
-			this.sprite1.x=0;
-			this.sprite1.y=0;
-			this.sprite2.x=1366;
-			this.sprite2.y=0;
-			this.sprite2.scale(-1,1);
-		},
-		update : function(speed){
-			if(this.sprite1.x < -1366){this.sprite1.x += 1366*2;}
-			if(this.sprite2.x < -1366){this.sprite2.x += 1366*2;}
-		},
-		add : function(scene){
-			scene.addChild(this.sprite1);
-			scene.addChild(this.sprite2);
-		}
-	}
-	
-	//collision_old
-	console.log(sky_test);
-	sky_test.init();
-	sky_test.initPos();
-	testScene.addChild(sky_test.sprite1);
-	testScene.addChild(sky_test.sprite2);
-	//sky_test.add(testScene);
-	testScene.addEventListener('enterframe', function () {
-		sky_test.update();
-	});
-	
-	function collisionCheck(){
-		if(fallSpeed < 0){
-			console.log(`up`);
-			return false;
-		}
-		//var flag = false; 
-		var grmLeft = grm.x + 20;
-		var grmRight = grm.x + grm.width-10;
-		for(var i=0;i<stageList.length;i++){
-			console.log(i);
-			if(grmRight < stageList[i].x ){
-				console.log(`break`);
-				return false;
-			}
-			else if(stageList[i].x + stageList[i].width < grmLeft ){
-				console.log(`non`);
-			}else //if( stageList[i].x < grmRight &&  stageList[i].x + stageList[i].width > grm.x  )
-			{
-				var grmBottom=grm.y+grm.height + 7;
-				if( stageList[i].y < grmBottom && grmBottom < stageList[i].y + maxSpeed*2 ){
-					grm.y = stageList[i].y - grm.height + 7;
-					fallSpeed = 0;
-					//flag = true;
-					console.log(`hit`);
-					return true;
-				}
-				else{
-					console.log(`noHit`);
-				}
-			}
-		}
-		return false;
-	}
-	
-	//memo
-	//375×667 iPhone6
-	//320×568 iPhone5
-	
-	*/
