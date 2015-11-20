@@ -104,12 +104,12 @@ function gameMain(){
 		demoPlay()
 	
 		//bgm
-		//core.assets['title.ogg'].play();			
+		core.assets['title.ogg'].play();			
 	});
 	
 	title.addEventListener('touchstart', function() {
     	
-		core.assets['title.ogg'].stop();
+		//core.assets['title.ogg'].stop();
 		core.assets[`start.ogg`].play();
 		gameInit();
     });
@@ -165,12 +165,12 @@ function gameMain(){
 		}
 		
 		//bgm
-		//core.assets['game.ogg'].play();
+		core.assets['game.ogg'].play();
 
 		if(grm.y > height){
 			core.assets[`fall.ogg`].play();
 			core.popScene(game);
-			core.assets['game.ogg'].stop();
+			//core.assets['game.ogg'].stop();
 			titleInit();
 		}
 		
