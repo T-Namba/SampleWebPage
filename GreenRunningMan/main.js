@@ -184,8 +184,6 @@ function gameMain(){
 		touchflag=false;
     });
 	
-	//---------------------------------------以下大体完成してるの--------------------------------------------
-	
 	// 変数初期化
 	function initNum(){
 		speed = 5;
@@ -225,7 +223,7 @@ function gameMain(){
 	 
 	function jump(sound){
 		if(jumpFlag==false){
-			if(sound){core.assets[`jump.ogg`].play();}
+			//if(sound){core.assets[`jump.ogg`].play();}
 			jumpFlag=true;
 			fallSpeed -= 20;
 		}
