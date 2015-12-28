@@ -1,4 +1,3 @@
-
 enchant();
 var width=640,height=480;
 var core = new Core(width,height);
@@ -28,7 +27,53 @@ function gameMain(){
 	var time;
 	var score;
 	var touchflag;
-
+        
+   var sounds ={
+	   init : function(){		
+			sounds.fall = new sound(`fall`);
+			sounds.game = new sound(`game`);
+			sounds.jump = new sound(`jump`);
+			sounds.speedup = new sound(`speedup`);
+			sounds.start = new sound(`start`);
+			sounds.title = new sound(`title`);
+			sounds.update = function(){
+					sounds.fall.update();
+					sounds.game.update();
+					sounds.jump.update();
+					sounds.speedup.update();
+					sounds.start.update();
+					sounds.title.update();
+			} 
+	   }
+   };
+	sounds.init();
+	
+	function sound(name){
+        var self = this;
+		this.name = name;
+		this.isPlaing = false;
+        var assets = core.assets[self.name + ".ogg"];
+		this.play = function(){
+			if(!self.isPlaing){
+                assets.play();
+				//core.assets[self.name + ".ogg"].play();
+				self.curentPlaybackTime = self.playbackTime * core.fps;
+				self.isPlaing = true;
+				console.log("new sound");
+			}
+			else console.log("sound plaing");
+		},
+		this.stop = function(){
+			assets.stop();
+			self.isPlaing = false;
+		},
+		this.update = function(){
+            if(assets.currentTime >= assets.duration){
+                self.stop();
+            }
+		}			
+	};
+    
 	// Color
 	var colors = new Array(`Blue`,`BlueViolet`,`LimeGreen`,`Orange`,`Gold`,`OrangeRed`,`Crimson`,`DeepPink`,`Indigo`,`Red`,`Lime`,`Yellow`);
 	
@@ -66,7 +111,6 @@ function gameMain(){
 	
 	/************************************
 	 * title
-	 * 
 	 ***********************************/
 	
 	function titleInit(){
@@ -98,25 +142,28 @@ function gameMain(){
 			title.addChild(grm);
 		}
 		
+		//bgm
+		sounds.title.play();
+		sounds.update();
+		//core.assets['title.ogg'].play();
+		
 		//grm
 		grm.update();
+		
 		collisionCheck();
-		demoPlay()
-	
-		//bgm
-		//core.assets['title.ogg'].play();			
+		demoPlay();	
 	});
 	
 	title.addEventListener('touchstart', function() {
-    	
+		sounds.title.stop();
+    	sounds.start.play();
 		//core.assets['title.ogg'].stop();
-		core.assets[`start.ogg`].play();
+		//core.assets[`start.ogg`].play();
 		gameInit();
     });
 	
 	/***********************************************
 	 * game
-	 * 
 	 ************************************************/
 	
 	function gameInit(){
@@ -138,7 +185,7 @@ function gameMain(){
 		
 		//stage
 		stage.init();
-		game.addChild(stageList[0]);	
+		game.addChild(stageList[0]);
 	}
 	
 	game.addEventListener('enterframe', function () {
@@ -152,6 +199,11 @@ function gameMain(){
 			game.addChild(grm);
 		}
 		
+		//bgm
+		sounds.game.play();
+		sounds.update();
+		//core.assets['game.ogg'].play();	
+		
 		//grm
 		grm.update();
 		collisionCheck();
@@ -161,15 +213,15 @@ function gameMain(){
 		score += speed;
 		if(time%500==0){
 			speed+=1;
-			core.assets['speedup.ogg'].play();
+			sounds.speedup.play();
+			//core.assets['speedup.ogg'].play();
 		}
-		
-		//bgm
-		//core.assets['game.ogg'].play();
 
 		if(grm.y > height){
-			core.assets[`fall.ogg`].play();
+			sounds.fall.play();
+			//core.assets[`fall.ogg`].play();
 			core.popScene(game);
+			sounds.game.stop();
 			//core.assets['game.ogg'].stop();
 			titleInit();
 		}
@@ -183,6 +235,10 @@ function gameMain(){
 	game.addEventListener('touchend', function() {
 		touchflag=false;
     });
+	
+/*************************************************
+ * function
+ * ***********************************************/
 	
 	// 変数初期化
 	function initNum(){
@@ -223,7 +279,7 @@ function gameMain(){
 	 
 	function jump(sound){
 		if(jumpFlag==false){
-			//if(sound){core.assets[`jump.ogg`].play();}
+			if(sound){sounds.jump.play();}//core.assets[`jump.ogg`].play();}
 			jumpFlag=true;
 			fallSpeed -= 20;
 		}
@@ -240,7 +296,6 @@ function gameMain(){
 
 	/**************************************************
 	 * sky
-	 * 
 	 *************************************************/
 	function skyLoad(){
 			sky1.image=core.assets[`sky.png`];
@@ -300,9 +355,7 @@ function gameMain(){
 			}
 		}
 		else return false;
-	}
-	
-	
+	}	
 	/*********************************************
 	 * 当たり判定
 	 * 当たっていると true を返す。 
@@ -321,6 +374,5 @@ function gameMain(){
 				}
 			}
 		}
-	}
-	
+	}	
 }
