@@ -1,6 +1,6 @@
 
 enchant();
-var width=640,height=480;
+var width=568,height=320;
 var core = new Core(width,height);
 core.preload(`GRM.png`,`sky.png`);// 画像読み込み
 core.preload(`jump.ogg`,`fall.ogg`,`speedup.ogg`,`start.ogg`);// 効果音読み込み
